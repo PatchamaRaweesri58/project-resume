@@ -1,0 +1,71 @@
+version: "3.8"
+
+networks:
+  app_networks:
+    name: docker_laravel
+    driver: bridge
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: php:apache
+    container_name: docker_apache
+    ports:
+      - "80:80"
+    volumes:
+      - ./app:/var/www
+
+    depends_on:
+      - db
+      - phpmyadmin
+    restart: unless-stopped
+    networks:
+      - app_networks
+
+  db:
+    image: mysql:8.0
+    container_name: docker_mysql
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=!general58
+      - MYSQL_DATABASE=general
+      - MYSQL_USER=user_general
+      - MYSQL_PASSWORD=general58
+    ports:
+      - "3306:3306"
+    restart: unless-stopped
+    networks:
+      - app_networks
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    depends_on:
+      - db
+    container_name: docker_phpmyadmin
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_USER: user_general
+      PMA_PASSWORD: general58
+    ports:
+      - 8200:80
+    restart: unless-stopped
+    networks:
+      - app_networks
+    # Nginx Web Server Service
+  nginx:
+    image: nginx:1.19.8-alpine
+    container_name: docker_nginx
+    volumes:
+      - ./app:/var/www
+      - ./nginx/conf:/etc/nginx/conf.d
+    ports:
+      - "8100:80"
+    restart: unless-stopped
+    networks:
+      - app_networks
+volumes:
+  mysql_data:
