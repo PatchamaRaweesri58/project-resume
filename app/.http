@@ -1,0 +1,23 @@
+get http://localhost:8100/api/data
+###
+
+get http://localhost:8100/api/bn-profile/datatables
+
+###
+post http://localhost:8100/api/add
+###
+put http://localhost:8100/api/updated/1
+###
+
+
+
+get http://localhost:8100/api/register
+###
+post http://localhost:8100/api/login/from
+###
+get http://localhost:8100/api/login
+###
+post http://localhost:8100/api/register/from
+
+###
+DELETE https://resume.thaisalepage.com/delete/profile/4

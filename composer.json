@@ -1,0 +1,6 @@
+{
+    "require": {
+        "yajra/laravel-datatables-oracle": "^10.11",
+        "laravel/ui": "^4.5"
+    }
+}

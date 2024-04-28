@@ -26,7 +26,7 @@ services:
 
   db:
     image: mysql:8.0
-    container_name: docker_mysql
+    container_name: docker-mysql
     volumes:
       - ./mysql_data:/var/lib/mysql
     environment:
@@ -34,6 +34,7 @@ services:
       - MYSQL_DATABASE=general
       - MYSQL_USER=user_general
       - MYSQL_PASSWORD=general58
+      - MYSQL_GRANT_CREATE_DATABASE=user_general
     ports:
       - "3306:3306"
     restart: unless-stopped
@@ -44,12 +45,13 @@ services:
     image: phpmyadmin/phpmyadmin:latest
     depends_on:
       - db
-    container_name: docker_phpmyadmin
+    container_name: docker-phpmyadmin
     environment:
       PMA_HOST: db
       PMA_PORT: 3306
-      PMA_USER: user_general
-      PMA_PASSWORD: general58
+      # PMA_USER: user_general
+      # PMA_PASSWORD:general58
+      PMA_ARBITRARY: 1
     ports:
       - 8200:80
     restart: unless-stopped
