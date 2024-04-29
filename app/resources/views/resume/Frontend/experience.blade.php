@@ -78,8 +78,8 @@
                 <blockquote class="profile_quote">
 
                     @foreach ($experience as $item)
-                        <p> {{!! $item->head !!}}</p>
-                        <p> {{!! $item->contents !!}}</p>
+                        <p> {{ $item->head }}</p>
+                        <p> {{ $item->contents }}</p>
                     @endforeach
                     <span class="entypo-quote"></span>
 

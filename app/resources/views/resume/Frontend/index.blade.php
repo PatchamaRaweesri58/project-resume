@@ -107,17 +107,7 @@
                 @endfor
             </div>
 
-            <div id="content_container">
-                <h1>Profile</h1>
-                @foreach ($profiles as $profile)
-                    <div class="block">
-                        <blockquote class="profile_quote">
-                            <p>{{!! $profile->contents !!}}</p>
-                            <span class="entypo-quote"></span>
-                        </blockquote>
-                    </div>
-                @endforeach
-            </div>
+         
 
 
             <div class="block">

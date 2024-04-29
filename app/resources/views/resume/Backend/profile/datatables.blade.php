@@ -24,116 +24,11 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.css" />
     <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
 
-    {{-- <style>
-        /* Media Queries เพื่อทำให้เว็บ Responsive */
 
-        /* เมื่อหน้าจอมีขนาดเล็กกว่าหรือเท่ากับ 768px */
-        @media screen and (max-width: 768px) {
-            #sidebar {
-                display: none;
-                /* ซ่อน Sidebar เมื่อเข้า Media Queries */
-            }
-
-            .col-md-9 {
-                width: 100%;
-                /* ตั้งค่าความกว้างของเนื้อหาเป็น 100% เมื่อเข้า Media Queries */
-            }
-
-            .btn-primary {
-                display: block;
-                margin: auto;
-                /* จัด Button กลางของหน้าจอเมื่อเข้า Media Queries */
-            }
-
-            .navbar-nav {
-                flex-direction: column;
-                /* เรียงเมนูแนวตั้ง */
-            }
-
-            /* ปรับระยะห่างของเมนูซ้ายและขวาให้มีระยะห่างจากกัน */
-            .navbar-nav>li {
-                margin-bottom: 10px;
-            }
-
-            /* ปรับขนาดของ Logo เมื่อเข้า Media Queries */
-            .navbar-brand img {
-                width: 100px;
-                /* ขนาดของโลโก้ */
-                height: auto;
-            }
-        }
-    </style> --}}
 @endsection
 
 @section('content')
-    {{-- <div class="container-fluid">
-        <div class="row"> --}}
-            <!-- Sidebar -->
-            {{-- <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
-                <div class="position-sticky">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ route('datatables') }}">
-                                Profile
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ route('datatables.st') }}">
-                                List:Profile
-                            </a>
-                        </li>
-                        <hr>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('datatables.education') }}">
-                                Education
-                            </a>
-                        </li>
-                        <hr>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('datatables.skills') }}">
-                                Skills
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page"
-                                href="{{ route('datatables.listskillsController') }}">
-                                List:Skills
-                            </a>
-                        </li>
-                        <hr>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('datatables.experience') }}">
-                                Work Experience
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ route('datatables.listexperience') }}">
-                                List:Experience
-                            </a>
-                        </li>
-                        <hr>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('datatables.featured') }}">
-                                Featured Projects
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ route('datatables.listfeatured') }}">
-                                List:Featured
-                            </a>
-                        </li>
-                        <hr>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('datatables.certificate') }}">
-                                Certificates
-                            </a>
-                        </li>
-                        <hr>
-                    </ul>
-                </div>
-            </nav> --}}
-   <!--Start sidebar-wrapper-->
-
+  
 <!--End sidebar-wrapper-->
             <!-- Main content area -->
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
