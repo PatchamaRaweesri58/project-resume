@@ -55,11 +55,6 @@
                         <li class="sidebar-header">MAIN NAVIGATION</li>
 
                         <li>
-                            <a href="{{ url('tables-all') }}">
-                                <i class="zmdi zmdi-grid"></i> <span>Contents</span>
-                            </a>
-                        </li>
-                        <li>
                             <a href="{{ route('datatables') }}">
                                 <i class="zmdi zmdi-grid"></i> <span>Profile</span>
                             </a>

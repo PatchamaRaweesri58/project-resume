@@ -54,32 +54,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 
-// หน้าแรก
-Route::get('/welcome', function () {
-    return view('resume.backend.profile.seo');
-});
-Route::get('/view', function () {
-    return view('resume.backend.profile.layouts');
-});
-Route::get('/hello', function () {
-    return view('dashbord.tables');
-});
-Route::get('/tables', function () {
-    return view('dashbord.tables');
-});
-Route::get('/darkpan/table', function () {
-    return view('darkpan.table');
-});
-Route::get('/darkpan', function () {
-    return view('darkpan.form');
-});
-Route::get('/tables-all', function () {
-    return view('all');
-});
-
-
-
-
 
 Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 //format
