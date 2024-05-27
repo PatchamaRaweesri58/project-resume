@@ -9,3 +9,8 @@
 /.github export-ignore
 CHANGELOG.md export-ignore
 .styleci.yml export-ignore
+mysql_data/mysql.sock
+.htaccess
+httpd.conf
+server.php
+.gitignore
