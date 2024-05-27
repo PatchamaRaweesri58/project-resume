@@ -24,45 +24,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.css" />
     <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
 
-    {{-- <style>
-        /* Media Queries เพื่อทำให้เว็บ Responsive */
-
-        /* เมื่อหน้าจอมีขนาดเล็กกว่าหรือเท่ากับ 768px */
-        @media screen and (max-width: 768px) {
-            #sidebar {
-                display: none;
-                /* ซ่อน Sidebar เมื่อเข้า Media Queries */
-            }
-
-            .col-md-9 {
-                width: 100%;
-                /* ตั้งค่าความกว้างของเนื้อหาเป็น 100% เมื่อเข้า Media Queries */
-            }
-
-            .btn-primary {
-                display: block;
-                margin: auto;
-                /* จัด Button กลางของหน้าจอเมื่อเข้า Media Queries */
-            }
-
-            .navbar-nav {
-                flex-direction: column;
-                /* เรียงเมนูแนวตั้ง */
-            }
-
-            /* ปรับระยะห่างของเมนูซ้ายและขวาให้มีระยะห่างจากกัน */
-            .navbar-nav>li {
-                margin-bottom: 10px;
-            }
-
-            /* ปรับขนาดของ Logo เมื่อเข้า Media Queries */
-            .navbar-brand img {
-                width: 100px;
-                /* ขนาดของโลโก้ */
-                height: auto;
-            }
-        }
-    </style> --}}
+ 
 @endsection
 
 @section('content')
@@ -74,16 +36,36 @@
         <form action="{{route('api.experience')}}" method="post">
             @csrf
             <div class="form-group">
-                <label for="header">Header</label>
-                <input type="text" class="form-control" name="header" id="header" placeholder="ส่วนของ header">
+                <label for="header"></label>
+                <input type="text" class="form-control" name="header" id="header" placeholder="ส่วนของ header"  value="Causes and problems" hidden>
             </div>
 
             <div class="form-group">
                 <label for="contents">Contents</label>
-                <input type="text" class="form-control" name="contents" id="contents" placeholder="ส่วนของ contents">
+                <textarea id="editor1" rows="10" cols="80" name="contents" placeholder="ส่วนของ contents"></textarea>
             </div>
 
-            <button type="submit" class="btn btn-success">Submit</button>
+            <button type="submit" class="btn btn-success float-right">Submit</button>
         </form>
     </div>
+@endsection
+@section('script')
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- CKEditor -->
+    <script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
+
+    <script>
+        // เรียกใช้ CKEditor บน textarea ที่มี id="editor1"
+        CKEDITOR.replace('editor1');
+
+        function loadSelectedForm(selectElement) {
+            var selectedOption = selectElement.value;
+
+            // ถ้ามีตัวเลือกที่ถูกเลือก
+            if (selectedOption) {
+                window.location.href = selectedOption; // เปลี่ยนไปยัง URL ที่เลือก
+            }
+        }
+    </script>
 @endsection

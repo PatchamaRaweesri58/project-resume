@@ -78,11 +78,11 @@ class FeaturedController extends Controller
     //destroy
     public function delete($id)
     {
-        $featured = Featured::findOrFail($id);
+        $featured = Featured::find($id);
         if ($featured) {
             $featured->delete();
 
-            return redirect()->route('datatables.featured', compact('featured'));
+            return response()->json(['message'=>'Sucsess'],200);
         } else {
             return response()->json(['message' => 'Profile not found'], 404);
         }

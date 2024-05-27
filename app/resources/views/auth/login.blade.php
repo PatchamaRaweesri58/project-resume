@@ -8,6 +8,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Dashtreme Admin - Free Dashboard for Bootstrap 4 by Codervent</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="{{ asset('assets/css/pace.min.css') }}" rel="stylesheet" />
     <script src="{{ asset('assets/js/pace.min.js') }}"></script>
     <!--favicon-->
@@ -26,7 +27,30 @@
     <link href="{{ asset('assets/css/sidebar-menu.css') }}" rel="stylesheet" />
     <!-- Custom Style-->
     <link href="{{ asset('assets/css/app-style.css') }}" rel="stylesheet" />
+ 
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
+        #wrapper {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 400px;
+            /* Adjust the max width as needed */
+        }
+    </style>
 </head>
 
 <body class="bg-theme bg-theme1">
@@ -42,56 +66,68 @@
     <!-- end loader -->
 
     <!-- Start wrapper-->
-    <div id="wrapper">
+    <div id="wrapper" class="d-flex justify-content-center align-items-center min-vh-100">
 
-        <div class="loader-wrapper">
-            <div class="lds-ring">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-        </div>
-        <div class="card card-authentication1 mx-auto my-5">
-            <div class="card-body">
-                <div class="card-content p-2">
-                    <div class="text-center">
-                        <img src="{{ asset('assets/images/logo-icon.png') }}" alt="logo icon">
+        <div class="form-container">
+            <div class="card card-authentication1 mx-auto my-5">
+                <div class="card-body">
+                    <div class="card-content p-2">
+                        <div class="text-center">
+                            <img src="{{ asset('assets/images/logo-icon.png') }}" alt="logo icon">
+                        </div>
+                        <div class="card-title text-uppercase text-center py-3">เข้าสู่ระบบ</div>
+
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $item)
+                                        <li> {{ $item }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        <p>คุณมีบัญชีอยู่เเล้วหรือไม่ <a href="{{ route('register') }}"
+                                class="text text-danger">ลงทะเบียน</a></p>
+                        <form action="{{ route('login') }}" method="post">
+                            @csrf
+                            <div class="form-group">
+                                <label for="email" class="sr-only">Email</label>
+                                <div class="position-relative has-icon-right">
+                                    <input type="email" name="email" id="email"
+                                        class="form-control input-shadow" placeholder="Enter Email"
+                                        autocomplete="current-email" required>
+                                    <div class="form-control-position">
+                                        <i class="icon-user"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="sr-only">Password</label>
+                                <div class="position-relative has-icon-right">
+                                    <input type="password" name="password" id="password"
+                                        class="form-control input-shadow" placeholder="Enter Password"
+                                        autocomplete="current-password" required>
+                                    <div class="form-control-position">
+                                        <i class="icon-lock"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row mt-4 justify-content-center">
+                                <div class="form-group mb-0 col-6 text-center">
+                                    <button type="submit" class="btn btn-light btn-block">เข้าสู่ระบบ</button>
+                                </div>
+                            </div>
+
+                            {{-- <div class="form-row mt-4 justify-content-center">
+                                <div class="form-group mb-0 col-6 text-center">
+                                    <a href="{{ route('register') }}" class="btn btn-light btn-block">ลงทะเบียน</a>
+                                </div>
+                            </div> --}}
+                        </form>
                     </div>
-                    <div class="card-title text-uppercase text-center py-3">Sign In</div>
-                    <form action="{{ route('login') }}" method="post">
-                        @csrf
-                        <div class="form-group">
-                            <label for="email" class="sr-only">Email</label>
-                            <div class="position-relative has-icon-right">
-                                <input type="email" name="email" id="email" class="form-control input-shadow" placeholder="Enter Email" autocomplete="current-email">
-                                <div class="form-control-position">
-                                    <i class="icon-user"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="password" class="sr-only">Password</label>
-                            <div class="position-relative has-icon-right">
-                                <input type="password" name="password" id="password" class="form-control input-shadow" placeholder="Enter Password" autocomplete="current-password">
-                                <div class="form-control-position">
-                                    <i class="icon-lock"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-light btn-block">Sign In</button>
-                        <div class="text-center mt-3">Sign In With</div>
-                        <div class="form-row mt-4 justify-content-center">
-                            <div class="form-group mb-0 col-6 text-center">
-                                <a href="{{ route('register') }}" class="btn btn-light btn-block">Register</a>
-                            </div>
-                        </div>
-                    </form>
                 </div>
             </div>
-            {{-- <div class="card-footer text-center py-3">
-                <p class="text-warning mb-0">Do not have an account? <a href="register.html"> Sign Up here</a></p>
-            </div> --}}
         </div>
 
         <!--Start Back To Top Button-->

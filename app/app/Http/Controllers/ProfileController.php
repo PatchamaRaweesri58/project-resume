@@ -17,11 +17,11 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $profiles = Profile::all();
+        $profiles = Profile::get();
         $st = St::get();
 
-        return view('resume.Frontend.index')
-        ->with('profiles', $profiles)->with('st', $st);
+        return view('resume.Frontend.index',compact('profiles','st'));
+     
     }
 
     /**

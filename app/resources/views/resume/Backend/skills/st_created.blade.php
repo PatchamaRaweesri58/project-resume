@@ -1,5 +1,4 @@
 @extends('layouts.backend.admin.master')
-
 @section('style')
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -24,79 +23,55 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.css" />
     <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
 
-    {{-- <style>
-        /* Media Queries เพื่อทำให้เว็บ Responsive */
+  
+@endsection
+@section('content')
+    <form action="{{ route('datatables.skills.list.store') }}" method="POST">
+        @csrf
+        <label for="listskills">เลือกหัวข้อ</label>
+        <select name="header" id="listskills"  onchange="toggleOptions()">
+            <option >เลือกหัวข้อ</option>
+            <option value="SOFTSKILLS">Soft Skills</option>
+            <option value="TECHNICAL SKILLS">Technical Skills</option>
+        </select>
 
-        /* เมื่อหน้าจอมีขนาดเล็กกว่าหรือเท่ากับ 768px */
-        @media screen and (max-width: 768px) {
-            #sidebar {
-                display: none;
-                /* ซ่อน Sidebar เมื่อเข้า Media Queries */
-            }
-
-            .col-md-9 {
-                width: 100%;
-                /* ตั้งค่าความกว้างของเนื้อหาเป็น 100% เมื่อเข้า Media Queries */
-            }
-
-            .btn-primary {
-                display: block;
-                margin: auto;
-                /* จัด Button กลางของหน้าจอเมื่อเข้า Media Queries */
-            }
-
-            .navbar-nav {
-                flex-direction: column;
-                /* เรียงเมนูแนวตั้ง */
-            }
-
-            /* ปรับระยะห่างของเมนูซ้ายและขวาให้มีระยะห่างจากกัน */
-            .navbar-nav>li {
-                margin-bottom: 10px;
-            }
-
-            /* ปรับขนาดของ Logo เมื่อเข้า Media Queries */
-            .navbar-brand img {
-                width: 100px;
-                /* ขนาดของโลโก้ */
-                height: auto;
-            }
-        }
-    </style> --}}
+        <div id="additionalOptions" style="display: none;">
+            <label for="subcategory">Subcategory:</label>
+            <select id="subcategory" name="head">
+                <option value="Languages">Language</option>
+                <option value="Framework/Libraries">Framework</option>
+                <option value="Version">Version</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            
+            <textarea id="editor1" rows="10" cols="80" name="contents" placeholder="ส่วนของ contents"></textarea>
+        </div>
+        
+        <div class="form-group submit-btn-container">
+            <button type="submit" class="btn btn-success float-right">เพิ่มข้อมูล</button>
+        </div>
+    </form>
 @endsection
 
-@section('content')
-    <div class="container">
-        <h1>+เพิ่มข้อมูล</h1>
+@section('script')
+    <!-- CKEditor -->
+    <script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
+    <script>
+        function toggleOptions() {
+            var skillsSelect = document.getElementById("listskills");
+            var additionalOptions = document.getElementById("additionalOptions");
 
-        <form action="{{ route('datatables.skills.list.store') }}" method="post">
-            @csrf
-            <div class="form-group">
-                <label for="header">TECHNICAL</label>
-                <select class="form-control" name="header" id="header">
-                    <option value="softskills">Softskills</option>
-                    <option value="Languages">Languages</option>
-                    <option value="Framework/Libraries">Framework/Libraries</option>
-                    <option value="Version">Version</option>
-                </select>
-            </div>
+            // Show subcategory options if "Technical Skills" is selected
+            if (skillsSelect.value === "TECHNICAL SKILLS") {
+                additionalOptions.style.display = "block";
+            } else {
+                additionalOptions.style.display = "none";
+            }
+        }
 
-            <div class="form-group">
-                <label for="head">TECHNICAL</label>
-                <select class="form-control" name="head" id="head">
-                    <option value="softskills">Softskills</option>
-                    <option value="Languages">Languages</option>
-                    <option value="Framework/Libraries">Framework/Libraries</option>
-                    <option value="Version">Version</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="contents">Contents</label>
-                <input type="text" class="form-control" name="contents" id="contents" placeholder="ส่วนของ contents">
-            </div>
-
-            <button type="submit" class="btn btn-success">Submit</button>
-        </form>
-    </div>
+        // Initialize CKEditor
+        CKEDITOR.replace('editor1');
+    </script>
 @endsection

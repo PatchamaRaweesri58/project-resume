@@ -81,7 +81,7 @@ class ListfeaturedController extends Controller
     }
 
     //destroy
-    public function destroy($id)
+    public function delete($id)
     {
         $listfeatured = Listfeatured::findOrFail($id);
 

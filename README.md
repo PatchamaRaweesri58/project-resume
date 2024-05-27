@@ -1,2 +1,3 @@
-run Docker  ด้วยคำสั่ง
-docker-compose up -d --build 
+<!-- star container with Docker Compose -->
+
+docker-compose up -d --build

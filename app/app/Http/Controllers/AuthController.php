@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Http;
 
 class AuthController extends Controller
 {
@@ -18,43 +20,66 @@ class AuthController extends Controller
     }
 
     public function login(Request $request)
-    {
-        $credentials = $request->validate([
-            'email' => 'required',
-            'password' => 'required',
-        ]);
+{
+    $validator = Validator::make($request->all(), [
+        'g-recaptcha-response' => 'required|captcha',
+        'email' => 'required',
+        'password' => 'required',
+    ]);
 
-        if (Auth::attempt($credentials)) {
-            $user = Auth::user();
-            $token = $user->createToken('AuthToken')->plainTextToken;
-
-            return back()->with('success', 'Registration successful. Please login.');
-        } else {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
+    if ($validator->fails()) {
+        return redirect()->route('login')->with('error', 'CAPTCHA validation failed. Please try again.');
     }
 
-    public function showRegisterForm()
+    $credentials = $request->only('email', 'password');
+
+    if (Auth::attempt($credentials)) {
+        $user = Auth::user();
+        $token = $user->createToken('AuthToken')->plainTextToken;
+
+        return redirect()->route('datatables')->with('success', 'Login successful.');
+    } else {
+        return redirect()->route('login')->with('error', 'Invalid email or password.');
+    }
+}
+
+    public function showForm()
     {
         return view('register');
     }
 
     public function register(Request $request)
     {
+        // Validate input including email and password
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8',
         ]);
-
-        $username = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
+    
+        // Verify reCAPTCHA
+        $token = $request->input('g-recaptcha-response');
+        $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+            'secret' => env('RECAPTCHA_SECRET_KEY'),
+            'response' => $token,
         ]);
-
-        $token = $username->createToken('AuthToken')->plainTextToken;
-
-        return redirect('/');
+        $responseData = $response->json();
+        
+        if ($responseData['success']) {
+            // If reCAPTCHA verification successful
+            // Hash the password
+            $hashedPassword = bcrypt($request->password);
+            
+            // Create new user
+            $user = new User();
+            $user->email = $request->email;
+            $user->password = $hashedPassword;
+            $user->save();
+    
+            // Redirect to login page with success message
+            return redirect()->route('login')->with('success', 'Registration successful!');
+        } else {
+            // If reCAPTCHA verification fails
+            return back()->withErrors(['captcha' => 'Please complete the reCAPTCHA.'])->withInput();
+        }
     }
 }

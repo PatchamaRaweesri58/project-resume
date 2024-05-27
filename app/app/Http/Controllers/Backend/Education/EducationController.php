@@ -60,23 +60,22 @@ class EducationController extends Controller
 
     public function update(Request $request, $id)
     {
-        $education = Education::find($id);
+        $data =  $request->validate([
 
+            'head' => 'required',
+            'contents' => 'required',
+
+        ]);
+        $education = Education::find($id);
         if ($education) {
-            $data =  $request->validate([
-                'header' => 'required',
-                'head' => 'required',
-                'contents' => 'required',
-            ]);
             $education->update([
-                'header' => $data['header'],
                 'head' => $data['head'],
                 'contents' => $data['contents']
             ]);
-            return redirect()->route('datatables.education');
-        } else {
-            return back();
-        }
+            return redirect()->route('datatables.education')->withErrors('message', 'Success data');
+        } else
+
+            return back()->withErrors('message', 'Success data');
     }
 
     //destroy
@@ -85,9 +84,10 @@ class EducationController extends Controller
         $education = Education::findOrFail($id);
 
         if ($education) {
+            
             $education->delete();
 
-            return redirect()->route('datatables.education', compact('education'));
+            return response()->json(['message' => 'success'], 200);
         } else {
             return response()->json(['message' => 'Profile not found'], 404);
         }

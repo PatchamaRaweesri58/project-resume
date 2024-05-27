@@ -40,36 +40,8 @@
             </div>
         </div>
         <!-- LEFT COL -->
-        <div id="left_col">
-            <div class="profile_frame">
-                <div class="profile_picture">
-                    <img src="{{ asset('image/1.jpg') }}" alt="profile picture" width="210px" height="240px"
-                        margin= "10px">
-                </div>
-            </div>
-            <div class="hello_content">
+        @include('layouts.frontend.layout')
 
-                <p>Miss Patchama Raweesri is currently 28 years old.<br>
-                    Born on September 1, 1994, currently living at house number 105, Village No. 5, Huang Bong
-                    Subdistrict, Chaloem Phra Kiat District, Saraburi Province.
-                </p>
-            </div>
-            <div class="contact_details_content">
-                <h2>Contact details</h2>
-                <p class="purple">Phone:</p>
-                <p><a href="tel:0649194507">064-919-4507</a></p>
-                <p class="purple">Email:</p>
-                <p><a href="mailto:mp58154580164@gmail.com">mp58154580164@gmail.com</a></p>
-                <p class="purple">LINE ID:</p>
-                <p><a href="https://line.me/ti/p/~mp07.09">mp07.09</a></p>
-                <p class="purple">Adress:</p>
-                <p>Village No. 5, Huang Bong Subdistrict</p>
-                <p> Chaloem Phra Kiat District </p>
-                <p>Saraburi Province.</p>
-                <p>18000</p>
-            </div>
-
-        </div>
         <!-- PROFILE CONTENT -->
         <div id="content_container">
             <div class="block">
@@ -78,8 +50,8 @@
                 <blockquote class="profile_quote">
 
                     @foreach ($experience as $item)
-                        <p> {{ $item->head }}</p>
-                        <p> {{ $item->contents }}</p>
+                        <p> "{!! $item->head !!} "</p>
+                        <p> {!! $item->contents !!}</p>
                     @endforeach
                     <span class="entypo-quote"></span>
 
@@ -96,12 +68,12 @@
 
 
                 <h2>Causes and problems</h2>
-                <ul>
+           
                     @foreach ($listExperience as $item)
-                        <li>{{ $item->contents }}</li>
+                        <p>{!! $item->contents !!}</p>
                     @endforeach
 
-                </ul>
+              
             </div>
         </div>
         <div class="clear"></div>

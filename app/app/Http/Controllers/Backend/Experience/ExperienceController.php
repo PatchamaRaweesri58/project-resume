@@ -58,35 +58,100 @@ class ExperienceController extends Controller
         $experience = Experience::find($id);
         return view('resume.Backend.experience.updated', compact('experience'));
     }
+
+    public function encryptFrontEnd($type, $name)
+    {
+        if ($type == "model") {
+            if ($name == "Education") {
+                return "aaaa";
+            } elseif ($name == "Experience") {
+                return "bbbb";
+            }
+        } elseif ($type == "route") {
+            if ($name == "Education") {
+                return "xxxx";
+            } elseif ($name == "Experience") {
+                return "yyyy";
+            }
+        }
+    }
+    public function decryptFrontEnd($type, $name)
+    {
+        if ($type == "model") {
+            if ($name == "aaaa") {
+                return "experience";
+            } elseif ($name == "bbbb") {
+                return Experience::class;
+            }
+        } elseif ($type == "route") {
+            if ($name == "xxxx") {
+                return "education";
+            } elseif ($name == "yyyy") {
+                return "experience";
+            }
+        }
+        return null; // เพิ่มการคืนค่า null เพื่อหลีกเลี่ยงข้อผิดพลาดที่ไม่คาดคิด
+    }
+
+    // public function update(Request $request, $id)
+    // {
+    //     $data =  $request->validate([
+
+    //         'head' => 'required',
+    //         'contents' => 'required', 
+    //         'model' => 'required', 
+    //         'return' => 'required'
+    //     ]);
+
+    //     $modelClass = $this->decryptFrontEnd('model', $data['model']);
+
+    //     if (!$modelClass) {
+    //         return back()->withErrors(['model' => 'โมเดลไม่ถูกต้อง']);
+    //     }
+
+    //     $experience = $modelClass::find($id);
+
+    //     if ($experience) {
+    //         $experience->update([
+    //             'header' => $data['header'],
+    //             'head' => $data['head'],
+    //             'contents' => $data['contents']
+    //         ]);
+    //         return redirect()->route('datatables.' . $this->decryptFrontEnd('route', $data['return']));
+    //     } else {
+    //         return back()->withErrors(['id' => 'ไม่พบข้อมูล']);
+    //     }
+    // }
+
+    //Update
     public function update(Request $request, $id)
     {
         $experience = Experience::find($id);
-
+        $data = $request->validate([
+            'head' => 'required',
+            'contents' => 'required'
+        ]);
         if ($experience) {
-            $data =  $request->validate([
-                'header' => 'required',
-                'head' => 'required',
-                'contents' => 'required',
-            ]);
             $experience->update([
-                'header' => $data['header'],
                 'head' => $data['head'],
                 'contents' => $data['contents']
             ]);
             return redirect()->route('datatables.experience');
         } else {
-            return back();
+            return back()->withErrors(['message' => 'Error Not can Update data']);
         }
     }
+
 
     //destroy
     public function delete($id)
     {
         $experience = Experience::findOrFail($id);
         if ($experience) {
+
             $experience->delete();
 
-            return redirect()->route('datatables.experience', compact('experience'));
+            return response()->json(['message' => 'Sucsess'], 200);
         } else {
             return response()->json(['message' => 'Profile not found'], 404);
         }

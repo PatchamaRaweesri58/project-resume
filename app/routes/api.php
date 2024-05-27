@@ -37,6 +37,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 //Profile
+
+
 Route::get('/data', [BackendProfileController::class, 'data'])->name('api.datatables.data');
 Route::post('/add', [BackendProfileCreatedController::class, 'create'])->name('datatables.created');
 Route::put('/updated/{id}', [BackendProfileUpdatedController::class, 'update'])->name('api.datatables.updateprofile');

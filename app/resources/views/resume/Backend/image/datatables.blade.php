@@ -6,148 +6,32 @@
     <meta content="" name="keywords">
     <meta content="" name="description">
     <title>Data Table</title>
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
 
-    <!--นำเข้าไฟล์  Css -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" />
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <!--นำเข้าไฟล์  Jquery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-
-    <!--นำเข้าไฟล์  plug-in DataTable -->
-    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-
-    {{-- <นำเข้า bootstap> --}}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.css" />
     <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
-
-    {{-- <style>
-        /* Media Queries เพื่อทำให้เว็บ Responsive */
-
-        /* เมื่อหน้าจอมีขนาดเล็กกว่าหรือเท่ากับ 768px */
-        @media screen and (max-width: 768px) {
-            #sidebar {
-                display: none;
-                /* ซ่อน Sidebar เมื่อเข้า Media Queries */
-            }
-
-            .col-md-9 {
-                width: 100%;
-                /* ตั้งค่าความกว้างของเนื้อหาเป็น 100% เมื่อเข้า Media Queries */
-            }
-
-            .btn-primary {
-                display: block;
-                margin: auto;
-                /* จัด Button กลางของหน้าจอเมื่อเข้า Media Queries */
-            }
-
-            .navbar-nav {
-                flex-direction: column;
-                /* เรียงเมนูแนวตั้ง */
-            }
-
-            /* ปรับระยะห่างของเมนูซ้ายและขวาให้มีระยะห่างจากกัน */
-            .navbar-nav>li {
-                margin-bottom: 10px;
-            }
-
-            /* ปรับขนาดของ Logo เมื่อเข้า Media Queries */
-            .navbar-brand img {
-                width: 100px;
-                /* ขนาดของโลโก้ */
-                height: auto;
-            }
-        }
-    </style> --}}
 @endsection
 
 @section('content')
+    <!-- Sidebar -->
 
-   
-            <!-- Sidebar -->
-            {{-- <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
-                <div class="position-sticky">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ route('datatables') }}">
-                                Certificate
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ route('datatables.st') }}">
-                                List:Profile
-                            </a>
-                        </li>
-                        <hr>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('datatables.education') }}">
-                                Education
-                            </a>
-                        </li>
-                        <hr>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('datatables.skills') }}">
-                                Skills
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page"
-                                href="{{ route('datatables.listskillsController') }}">
-                                List:Skills
-                            </a>
-                        </li>
-                        <hr>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('datatables.experience') }}">
-                                Work Experience
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page"
-                                href="{{ route('datatables.listexperience') }}">
-                                List:Experience
-                            </a>
-                        </li>
-                        <hr>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('datatables.featured') }}">
-                                Featured Projects
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page"
-                                href="{{ route('datatables.listfeatured') }}">
-                                List:Featured
-                            </a>
-                        </li>
-                        <hr>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('datatables.certificate') }}">
-                                Certificates
-                            </a>
-                        </li>
-                        <hr>
-                    </ul>
-                </div>
-            </nav> --}}
-            <!-- Main content area -->
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <h1 class="mt-4">Table Certificate</h1>
-                <button class="btn btn-primary" onclick="window.location.href='/datatables/image/create'">+ Create</button>
-                <table id="myTable" class="display" style="width:100%">
-                    <!-- Table content goes here -->
-                </table>
-            </main>
-  
-
+    <!-- Main content area -->
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <h1 class="mt-4">Table Certificate</h1>
+        <button class="btn btn-primary float-right" onclick="window.location.href='/datatables/image/create'">+
+            Create</button>
+        <table id="myTable" class="table" style="width:100%">
+            <!-- Table content goes here -->
+        </table>
+    </main>
 @endsection
 @section('script')
-
-    
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
@@ -159,30 +43,64 @@
                 "ajax": "{{ route('api.images.data') }}",
                 "columns": [{
                         "data": "id",
-                        "title":"ID"
+                        "title": "ID"
                     },
                     {
                         "data": "name",
-                        "title":"ชื่อรูปภาพ"
+                        "title": "ชื่อรูปภาพ"
                     },
                     {
                         "data": "image",
-                        "title":"image",
-                        "render": function(data, type, row, meta){
-                            return '<img src="{{asset('images/')}}'+'/'+ data +'" with="100px" height="100px"/>';
+                        "title": "image",
+                        "render": function(data, type, row, meta) {
+                            return '<img src="{{ asset('images/') }}' + '/' + data +
+                                '" with="100px" height="100px"/>';
+                        }
+                    },
+
+                    {
+                        "data": "created_at",
+                        "title": "วันที่สร้าง",
+                        "render": function(data, type, row) {
+                            var date = new Date(data);
+                            return date
+                                .toLocaleDateString(); // ให้แสดงวันที่ในรูปแบบ "วัน เดือน ปี"
                         }
                     },
                     {
-                        "data": "created_at",
-                        "title":"วันที่สร้าง"
-                    },
-                    {
                         "data": "updated_at",
-                        "title":"อัปเดตล่าสุด"
+                        "title": "อัปเดตล่าสุด",
+                        "render": function(data, type, row) {
+                            var updatedAt = new Date(data);
+                            var now = new Date();
+                            var diffMs = now -
+                                updatedAt; // คำนวณหาความแตกต่างของเวลาในรูปแบบมิลลิวินาที
+                            var diffMins = Math.round(diffMs / 60000); // แปลงมิลลิวินาทีเป็นนาที
+
+                            if (diffMins < 60) { // ถ้าเวลาผ่านมาน้อยกว่าหนึ่งชั่วโมง
+                                return diffMins + " นาทีที่แล้ว"; // แสดงผลลัพธ์เป็นนาทีที่ผ่านมา
+                            } else if (diffMins <
+                                1440) { // ถ้าเวลาผ่านมาน้อยกว่าหนึ่งวัน (1440 นาที)
+                                var diffHours = Math.floor(diffMins /
+                                    60); // หาจำนวนชั่วโมงที่ผ่านมา
+                                var remainingMins = diffMins % 60; // หาจำนวนนาทีที่เหลือ
+                                return diffHours + " ชั่วโมง " + remainingMins +
+                                    " นาทีที่แล้ว"; // แสดงผลลัพธ์เป็นชั่วโมงและนาทีที่ผ่านมา
+                            } else {
+                                var diffDays = Math.floor(diffMins / 1440); // หาจำนวนวันที่ผ่านมา
+                                var remainingHours = Math.floor((diffMins % 1440) /
+                                    60); // หาจำนวนชั่วโมงที่เหลือหลังจากหารวันลงตัว
+                                var remainingMins = (diffMins % 1440) %
+                                    60; // หาจำนวนนาทีที่เหลือหลังจากหารวันลงตัวและหารชั่วโมงลงตัว
+                                return diffDays + " วัน " + remainingHours + " ชั่วโมง " +
+                                    remainingMins +
+                                    " นาทีที่แล้ว"; // แสดงผลลัพธ์เป็นวัน ชั่วโมง และนาทีที่ผ่านมา
+                            }
+                        }
                     },
                     {
                         "data": null,
-                        "title":"แก้ไข",
+                        "title": "แก้ไข",
                         "render": function(data, type, row) {
                             return '<button class="btn btn-warning" onclick="editProfile(' + row
                                 .id + ')">แก้ไข</button>';
@@ -190,13 +108,14 @@
                     },
                     {
                         "data": null,
-                         "title":"ลบ",
+                        "title": "ลบ",
                         "render": function(data, type, row) {
                             return '<form action="{{ url('/delete/image/') }}/' + row.id +
                                 '" method="post">' +
                                 '@csrf' +
                                 '@method('DELETE')' +
-                                '<button type="submit" class="btn btn-danger">Delete</button>' +
+                                '<button type="button" onclick="confirmDelete(' + row.id +
+                                ')" class="btn btn-danger">Delete</button>' +
                                 '</form>';
                         }
                     }
@@ -213,6 +132,25 @@
 
         }
 
+        function confirmDelete(id) {
+            if (confirm('Are you sure you want to delete this item?')) {
+                // ส่งคำร้องขอลบไปยังเซิร์ฟเวอร์
+                fetch('{{ url('/delete/image/') }}/' + id, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        }
+                    })
+                    .then(response => {
+                        // หลังจากลบข้อมูลสำเร็จ รีโหลดหน้า
+                        window.location.reload();
+                    })
+                    .catch(error => console.error('Error deleting item:', error));
+            } else {
+                // ใส่ alert หรือการปรับปรุง UI อื่นๆ เมื่อผู้ใช้ยกเลิกการลบ
+                alert('Delete canceled!');
+            }
+        }
         // function deleteProfile(id) {
         //     if (confirm('Are you sure you want to delete this profile?')) {
         //         $.ajax({
@@ -233,5 +171,4 @@
         //     }
         // }
     </script>
-
 @endsection

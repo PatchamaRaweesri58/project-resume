@@ -53,7 +53,7 @@ class UpdatedController extends Controller
         if($profiles){
             $profiles->delete();
 
-            return redirect()->route('datatables',compact('profiles'));
+            return response()->json(['message' => 'Success data'], 200);
         } else {
             return response()->json(['message' => 'Profile not found'], 404);
         }

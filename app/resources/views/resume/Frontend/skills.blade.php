@@ -40,67 +40,15 @@
             </div>
         </div>
         <!-- LEFT COL -->
-        <div id="left_col">
-            <div class="profile_frame">
-                <div class="profile_picture">
-                    <img src="{{ asset('image/1.jpg') }}" alt="profile picture" width="210px" height="240px"
-                        margin= "10px">
+        @include('layouts.frontend.layout')
 
-                </div>
-                <!-- <img src="images/javier_latorre.jpg" alt="profile picture"> -->
-            </div>
-            <div class="hello_content">
-
-                <p>Miss Patchama Raweesri is currently 28 years old.<br>
-                    Born on September 1, 1994, currently living at house number 105, Village No. 5, Huang Bong
-                    Subdistrict, Chaloem Phra Kiat District, Saraburi Province.
-                </p>
-            </div>
-            <div class="contact_details_content">
-                <h2>Contact details</h2>
-                <p class="purple">Phone:</p>
-                <p><a href="tel:0649194507">064-919-4507</a></p>
-                <p class="purple">Email:</p>
-                <p><a href="mailto:mp58154580164@gmail.com">mp58154580164@gmail.com</a></p>
-                <p class="purple">LINE ID:</p>
-                <p><a href="https://line.me/ti/p/~mp07.09">mp07.09</a></p>
-                <p class="purple">Adress:</p>
-                <p>Village No. 5, Huang Bong Subdistrict</p>
-                <p> Chaloem Phra Kiat District </p>
-                <p>Saraburi Province.</p>
-                <p>18000</p>
-            </div>
-            {{-- <a href="mailto:mp58154580164@gmail.com" class="send_message_button">
-                <span class="cut1"></span>
-                <span class="cut2"></span>
-                <span class="content">Send me a message <span class="fontawesome-double-angle-right"></span></span>
-            </a> --}}
-            {{-- <div class="get_social_content">
-                <h2>Get social</h2>
-                <ul class="social_icons horizontal_list">
-                    <li><a class="facebook" href="https://www.facebook.com/PatjamaRaweesri">
-                            <span class="entypo-facebook-circled"></span>
-                            <span class="invisible">Facebook</span>
-                        </a>
-                    </li>
-                </ul>
-            </div> --}}
-            <!--<div class="get_social_content">
-          <h2>Get social</h2>
-          <ul class="social_icons horizontal_list">
-            <li><a class="facebook" href="https://www.facebook.com/jlalovi"><span class="entypo-facebook-circled"></span><span class="invisible">Facebook</span></a></li>
-            <li><a class="twitter" href="https://twitter.com/jlalovi"><span class="entypo-twitter-circled"></span><span class="invisible">Twitter</span></a></li>
-            <li><a class="linkedin" href="https://www.linkedin.com/in/jlalovi/en"><span class="entypo-linkedin-circled"></span><span class="invisible">LinkedIn</span></a></li>
-          </ul>
-        </div>-->
-        </div>
         <!-- PROFILE CONTENT -->
         <div id="content_container">
             <div class="block">
                 <h2>Skills</h2>
                 @for ($i = 0; $i < count($skills); $i++)
                     <blockquote class="profile_quote">
-                        <p>{{ $skills[$i]->contents }}</p>
+                        <p>{!! $skills[$i]->contents !!}</p>
                         <span class="entypo-quote"></span>
                     </blockquote>
                 @endfor
@@ -126,8 +74,8 @@
 
                     <ul>
                         @foreach ($listskills as $item)
-                            @if ($item->head == 'softskills')
-                                <li>{{ $item->contents }}</li>
+                            @if ($item->header == 'SOFTSKILLS')
+                                <p>{!! $item->contents !!}</p>
                             @endif
                         @endforeach
                     </ul>
@@ -153,7 +101,7 @@
                             <ul>
                                 @foreach ($listskills as $item)
                                     @if ($item->head == 'Languages')
-                                        <li>{{ $item->contents }}</li>
+                                        <p>{!! $item->contents !!}</p>
                                     @endif
                                 @endforeach
                             </ul>
@@ -167,7 +115,7 @@
                             <ul>
                                 @foreach ($listskills as $item)
                                     @if ($item->head == 'Framework/Libraries')
-                                        <li>{{ $item->contents }}</li>
+                                        <p>{!! $item->contents !!}</p>
                                     @endif
                                 @endforeach
                             </ul>
@@ -181,7 +129,7 @@
                             <ul>
                                 @foreach ($listskills as $item)
                                     @if ($item->head == 'Version')
-                                        <li>{{ $item->contents }}</li>
+                                        <p>{!! $item->contents !!}</p>
                                     @endif
                                 @endforeach
                             </ul>

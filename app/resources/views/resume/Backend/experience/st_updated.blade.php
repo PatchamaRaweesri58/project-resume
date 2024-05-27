@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.backend.admin.master')
 
 @section('style')
     <meta charset="utf-8">
@@ -74,15 +74,22 @@
             @method('PUT')
             <div class="form-group">
                 <label for="header">Header</label>
-                <input type="text" class="form-control" name="header" id="header" value="{{$listexperience->header}}" placeholder="ส่วนของ header">
+                <input type="text" class="form-control" name="header" id="header"  value="{{$listexperience->header}}" placeholder="ส่วนของ header">
             </div>
 
             <div class="form-group">
                 <label for="contents">Contents</label>
-                <input type="text" class="form-control" name="contents" id="contents" value="{{$listexperience->contents}}" placeholder="ส่วนของ contents">
+                <textarea id="editor1" rows="10" cols="80" name="contents" placeholder="ส่วนของ contents">{{ $listexperience->contents }}</textarea>
             </div>
 
             <button type="submit" class="btn btn-success">Submit</button>
         </form>
     </div>
+@endsection
+@section('script')
+<script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
+
+<script>
+       CKEDITOR.replace('editor1');
+</script>
 @endsection

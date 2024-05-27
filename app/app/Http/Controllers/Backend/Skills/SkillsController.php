@@ -28,6 +28,8 @@ class SkillsController extends Controller
         return DataTables::of($skills)->toJson();
     }
 
+    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -85,11 +87,11 @@ class SkillsController extends Controller
     public function delete($id)
     {
 
-        $skills = Skills::findOrFail($id);
+        $skills = Skills::find($id);
         if ($skills) {
             $skills->delete();
 
-            return redirect()->route('datatables.skills', compact('skills'));
+            return response()->json(['message'=>'Sucsess'],200);
         } else {
             return response()->json(['message' => 'Profile not found'], 404);
         }

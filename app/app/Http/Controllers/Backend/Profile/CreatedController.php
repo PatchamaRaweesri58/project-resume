@@ -16,7 +16,7 @@ class CreatedController extends Controller
      */
     public function index()
     {
-       return view('resume.Backend.profile.created');
+        return view('resume.Backend.profile.created');
     }
 
     /**
@@ -26,15 +26,22 @@ class CreatedController extends Controller
      */
     public function create(Request $request)
     {
-        $data = $request->validate([
-            'header' => 'required',
-            'contents' => 'required'
+        $request->validate([
+            'header'=>'required',
+            'contents' => 'required',
         ]);
-        Profile::create([
-                'header' => $request->header,
-                'contents' => $request->contents,
+        try {
+
+            Profile::create([
+                'header'=>$request->header,
+                'contents' => $request->contents
             ]);
-            return redirect()->route('datatables');
+
+            return redirect()->route('datatables')->with(['message' => 'success data store']);
+        } catch (\Exception $e) {
+
+            return back()->withErrors(['errors' => 'put contents fail']);
+        }
     }
 
     /**

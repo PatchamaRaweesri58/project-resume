@@ -35,8 +35,26 @@ use App\Http\Controllers\NumberController;
 
 //
 use App\Http\Controllers\AuthLogoutController as LogoutController;
+//
+use App\Http\Controllers\CaptchaValidationController;
+//
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MapController;
+use App\Http\Controllers\LocationController;
+use App\Http\Controllers\UserController;
 
 
+Route::get('/register', [AuthController::class, 'showForm'])->name('register.form');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+
+
+//
+Route::get('/user-locations', [UserController::class, 'showLocations'])->name('user.locations');
+//
+Route::post('/save-location', [LocationController::class, 'store']);
+//
+use App\Http\Controllers\TableController;
+Route::resource('/datatable/list/skills', ListskillsController::class);
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -48,29 +66,47 @@ use App\Http\Controllers\AuthLogoutController as LogoutController;
 |
 */
 
+//
+// Route::post('/validate-captcha', [CaptchaValidationController::class, 'validateCaptcha']);
+//
+Route::get('/create-table', [TableController::class, 'create'])->name('table.create');
+Route::post('/create-table', [TableController::class, 'store'])->name('table.store');
+//
+
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+//tables
+Route::get('/tables', function () {
+    return view('dashboard.tables');
+});
+
+
+Route::get('/tables-test', function () {
+    return view('dashboard.tables');
+});
+
+Route::get('/get/data',[ProfileController::class,'getData'])->name('api.datatables.getdata');
 
 
 
 
 Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 //format
-Route::get('/table',[FormatController::class,'index'])->name('table.format');
-Route::get('/table/calendar',[FormatController::class,'calendar'])->name('table.calendar');
-Route::get('/table/forms',[FormatController::class,'forms'])->name('table.forms');
-Route::get('/table/icons',[FormatController::class,'icons'])->name('table.icons');
-Route::get('/table/license',[FormatController::class,'license'])->name('table.license');
-Route::get('/table/login',[FormatController::class,'getLogin'])->name('table.login');
-Route::get('/table/register',[FormatController::class,'getRegister'])->name('table.register');
-Route::get('/table/set-password',[FormatController::class,'setpassword'])->name('table.password');
-Route::get('/table/dashboard',[FormatController::class,'dashboard'])->name('table.dashboard');
-Route::get('/table/profile',[FormatController::class,'profile'])->name('table.profile');
+Route::get('/table', [FormatController::class, 'index'])->name('table.format');
+Route::get('/table/calendar', [FormatController::class, 'calendar'])->name('table.calendar');
+Route::get('/table/forms', [FormatController::class, 'forms'])->name('table.forms');
+Route::get('/table/icons', [FormatController::class, 'icons'])->name('table.icons');
+Route::get('/table/license', [FormatController::class, 'license'])->name('table.license');
+Route::get('/table/login', [FormatController::class, 'getLogin'])->name('table.login');
+Route::get('/table/register', [FormatController::class, 'getRegister'])->name('table.register');
+Route::get('/table/set-password', [FormatController::class, 'setpassword'])->name('table.password');
+Route::get('/table/dashboard', [FormatController::class, 'dashboard'])->name('table.dashboard');
+Route::get('/table/profile', [FormatController::class, 'profile'])->name('table.profile');
 
 //Route
-Route::get('/check-number',[NumberController::class,'checkNumberForm']);
-Route::post('/check-number',[NumberController::class,'checkNumber']);
+Route::get('/check-number', [NumberController::class, 'checkNumberForm']);
+Route::post('/check-number', [NumberController::class, 'checkNumber']);
 
 
 
@@ -85,8 +121,12 @@ Route::get('/featured', [FeaturedController::class, 'index'])->name('featured');
 
 
 //Back-end
-Route::middleware('auth')->group(function () {
+Route::middleware(['web', 'auth'])->group(function () {
 
+    //
+    Route::get('/map', [MapController::class,'showMap'])->name('map');
+
+    //
     Route::get('/add', [BackendProfileCreatedController::class, 'index']);
     Route::get('/updated/{id}', [BackendProfileUpdatedController::class, 'index']);
     // Route::delete('/delete/profile/{id}', [BackendProfileUpdatedController::class, 'destroy']);
@@ -161,15 +201,30 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::middleware('cors')->delete('/delete/profile/{id}', [BackendProfileUpdatedController::class, 'delete'])->name('profile.delete');
-Route::middleware('cors')->delete('/delete/image/{id}', [ImageController::class, 'delete'])->name('images.destroy');
-Route::middleware('cors')->delete('/delete/education/{id}', [BackendEducationController::class, 'delete'])->name('datatables.education.destroy');
-Route::middleware('cors')->delete('/delete/skills/{id}', [BackendSkillsController::class, 'delete'])->name('datatables.skills.destroy');
-Route::middleware('cors')->delete('/delete/featured/{id}', [BackendFeaturedController::class, 'delete'])->name('datatables.featured.destroy');
-Route::middleware('cors')->delete('/delete/experience/{id}', [BackendExperienceController::class, 'delete'])->name('datatables.experience.destroy');
-Route::middleware('cors')->delete('/delete/certificate/{id}', [BackendCertificateController::class, 'delete'])->name('datatables.certificate.destroy');
-Route::middleware('cors')->delete('/delete/image/{id}', [ImageController::class, 'delete'])->name('datatables.image.destroy');
-Route::middleware('cors')->delete('/delete/stprofile/{id}', [BackendProfileSTController::class, 'delete']);
-Route::middleware('cors')->delete('/datete/list/skills/{id}', [ListskillsController::class, 'delete'])->name('datatables.skills.list.destroy');
-Route::middleware('cors')->delete('/delete/list/featured/{id}', [ListfeaturedController::class, 'delete'])->name('datatables.list.featured.destroy');
-Route::middleware('cors')->delete('/delete/list/experience/{id}', [ListexperienceController::class, 'delete'])->name('datatables.experience.list.destroy');
+// Route::middleware('cors')->delete('/delete/profile/{id}', [BackendProfileUpdatedController::class, 'delete'])->name('profile.delete');
+// Route::middleware('cors')->delete('/delete/image/{id}', [ImageController::class, 'delete'])->name('images.destroy');
+// Route::middleware('cors')->delete('/delete/education/{id}', [BackendEducationController::class, 'delete'])->name('datatables.education.destroy');
+// Route::middleware('cors')->delete('/delete/skills/{id}', [BackendSkillsController::class, 'delete'])->name('datatables.skills.destroy');
+// Route::middleware('cors')->delete('/delete/featured/{id}', [BackendFeaturedController::class, 'delete'])->name('datatables.featured.destroy');
+// Route::middleware('cors')->delete('/delete/experience/{id}', [BackendExperienceController::class, 'delete'])->name('datatables.experience.destroy');
+// Route::middleware('cors')->delete('/delete/certificate/{id}', [BackendCertificateController::class, 'delete'])->name('datatables.certificate.destroy');
+// Route::middleware('cors')->delete('/delete/image/{id}', [ImageController::class, 'delete'])->name('datatables.image.destroy');
+// Route::middleware('cors')->delete('/delete/stprofile/{id}', [BackendProfileSTController::class, 'delete']);
+// Route::middleware('cors')->delete('/datete/list/skills/{id}', [ListskillsController::class, 'delete'])->name('datatables.skills.list.destroy');
+// Route::middleware('cors')->delete('/delete/list/featured/{id}', [ListfeaturedController::class, 'delete'])->name('datatables.list.featured.destroy');
+// Route::middleware('cors')->delete('/delete/list/experience/{id}', [ListexperienceController::class, 'delete'])->name('datatables.experience.list.destroy');
+
+
+
+Route::delete('/delete/profile/{id}', [BackendProfileUpdatedController::class, 'delete'])->name('profile.delete');
+Route::delete('/delete/image/{id}', [ImageController::class, 'delete'])->name('images.destroy');
+Route::delete('/delete/education/{id}', [BackendEducationController::class, 'delete'])->name('datatables.education.destroy');
+Route::delete('/delete/skills/{id}', [BackendSkillsController::class, 'delete'])->name('datatables.skills.destroy');
+Route::delete('/delete/featured/{id}', [BackendFeaturedController::class, 'delete'])->name('datatables.featured.destroy');
+Route::delete('/delete/experience/{id}', [BackendExperienceController::class, 'delete'])->name('datatables.experience.destroy');
+Route::delete('/delete/certificate/{id}', [BackendCertificateController::class, 'delete'])->name('datatables.certificate.destroy');
+Route::delete('/delete/image/{id}', [ImageController::class, 'delete'])->name('datatables.image.destroy');
+Route::delete('/delete/stprofile/{id}', [BackendProfileSTController::class, 'delete']);
+Route::delete('/datete/list/skills/{id}', [ListskillsController::class, 'delete'])->name('datatables.skills.list.destroy');
+Route::delete('/delete/list/featured/{id}', [ListfeaturedController::class, 'delete'])->name('datatables.list.featured.destroy');
+Route::delete('/delete/list/experience/{id}', [ListexperienceController::class, 'delete'])->name('datatables.experience.list.destroy');

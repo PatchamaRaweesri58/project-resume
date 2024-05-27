@@ -70,11 +70,11 @@ class STController extends Controller
     //destroy
     public function delete($id)
     {
-        $st = St::findOrFail($id);
+        $st = St::find($id);
         if($st){
             $st->delete();
 
-            return redirect()->route('datatables.st',compact('st'));
+            return response()->json(['message'=>'Sucsess'],200);
         } else {
             return response()->json(['message' => 'Profile not found'], 404);
         }

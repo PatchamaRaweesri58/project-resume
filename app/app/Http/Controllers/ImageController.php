@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Image;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Auth;
 
 class ImageController extends Controller
 {
@@ -66,9 +67,10 @@ class ImageController extends Controller
 
     public function store(Request $request)
     {
+    
         $request->validate([
             'name' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'required|image|max:10240',
         ]);
 
         $imageName = time() . '.' . $request->image->extension();
@@ -86,11 +88,11 @@ class ImageController extends Controller
 
     public function delete($id)
     {
-        $image = Image::findOrFail($id);
+        $image = Image::find($id);
         if ($image) {
             $image->delete();
 
-            return redirect()->route('images.index', compact('image'));
+            return response()->json(['message'=>'Sucsess'],200);
         } else {
             return response()->json(['message' => 'Profile not found'], 404);
         }

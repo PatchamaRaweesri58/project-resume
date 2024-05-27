@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.backend.admin.master')
 
 @section('style')
     <meta charset="utf-8">
@@ -80,10 +80,17 @@
 
             <div class="form-group">
                 <label for="contents">Contents</label>
-                <input type="text" class="form-control" name="contents" id="contents" value="{{$featured->contents}}" placeholder="ส่วนของ contents">
+                <textarea id="editor1" rows="10" cols="80" name="contents" placeholder="ส่วนของ contents">{{$featured->contents }}</textarea>
             </div>
 
-            <button type="submit" class="btn btn-success">Submit</button>
+            <button type="submit" class="btn btn-success float-right">Submit</button>
         </form>
     </div>
+@endsection
+@section('script')
+<script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
+
+<script>
+       CKEDITOR.replace('editor1');
+</script>
 @endsection

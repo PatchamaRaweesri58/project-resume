@@ -16,5 +16,21 @@ class Experience extends Model
         'head',
         'contents',
     ];
+
+    public function decryptFrontEnd($type, $name) {
+        if ($type == "model") {
+            if ($name == "aaaa") {
+                return "Education";
+            } elseif ($name == "bbbb") {
+                return "Experience";
+            }
+        } elseif ($type == "route") {
+            if ($name == "xxxx") {
+                return "Education";
+            } elseif ($name == "yyyy") {
+                return "Experience";
+            }
+        }
+    }
 }
 

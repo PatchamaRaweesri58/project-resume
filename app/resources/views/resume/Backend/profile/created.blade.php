@@ -1,68 +1,73 @@
 @extends('layouts.backend.admin.master')
-
 @section('style')
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
-    <title>Data Table</title>
+<!-- Bootstrap CSS -->
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <!--นำเข้าไฟล์  Css -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" />
+{{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
-    <!--นำเข้าไฟล์  Jquery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-
-    <!--นำเข้าไฟล์  plug-in DataTable -->
-    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-    {{-- <นำเข้า CKEditor> --}}
-    {{-- <script src="https://cdn.ckeditor.com/ckeditor5/37.1.0/classic/ckeditor.js"></script> --}}
-
-    {{-- <นำเข้า bootstap> --}}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<!-- DataTables CSS -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> --}}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 @endsection
-
 @section('content')
-    <div class="container">
-        <h1>+เพิ่มข้อมูล</h1>
+    <div class="container-fluid">
 
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        @if (session('message'))
+            <div class="alert alert-success">
+                {{ session('message') }}
+            </div>
+        @endif
+        {{-- <select id="profileSelect" onchange="loadSelectedForm(this)">
+            <option value="">หน้า Profile</option>
+            <option value="/add">เพิ่มเนื้อหา Profile</option>
+            <option value="/datatables/stprofile/created">เพิ่มเนื้อหา List: Profile</option>
+        </select> --}}
+        
         <form action="{{ route('datatables.created') }}" method="post">
             @csrf
             <div class="form-group">
-                <label for="header">Header</label>
-                <input type="text" class="form-control" name="header" id="header" placeholder="ส่วนของ header">
+                <label for="header"></label>
+                <input type="text" class="form-control" name="header" id="header" placeholder="ส่วนของ header"
+                    value="profile" hidden>
             </div>
 
             <div class="form-group">
-                <label for="contents">Contents</label>
-                <input type="text" class="form-control" name="contents" id="contents" placeholder="ส่วนของ content">
-                {{-- <textarea class="form-control" name="contents" id="contents" placeholder="ส่วนของ contents"></textarea> --}}
+                <label for="contents">+เพิ่มเนื้อหา</label>
+                <textarea id="editor1" rows="10" cols="80" name="contents" placeholder="ส่วนของ contents"></textarea>
             </div>
-
-            <button type="submit" class="btn btn-success">Submit</button>
+            <div class="form-group submit-btn-container">
+                <button type="submit" class="btn btn-success float-right">Success</button>
+            </div>
         </form>
-        @if ($errors->any())
-        <div class="alert alert-danger mt-3">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
 
     </div>
 @endsection
-{{-- @section('script')
+@section('script')
+    <!-- jQuery -->
+    {{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> --}}
+    <!-- CKEditor -->
+    <script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
+
     <script>
-        ClassicEditor
-            .create(document.querySelector('#contents'), {
-                // กำหนดคอนฟิกให้ CKEditor รองรับแท็ก <p>
-                allowedContent: false
-            })
-            .catch(error => {
-                console.error(error);
-            });
+        // เรียกใช้ CKEditor บน textarea ที่มี id="editor1"
+        CKEDITOR.replace('editor1');
+
+        // function loadSelectedForm(selectElement) {
+        //     var selectedOption = selectElement.value;
+
+        //     // ถ้ามีตัวเลือกที่ถูกเลือก
+        //     if (selectedOption) {
+        //         window.location.href = selectedOption; // เปลี่ยนไปยัง URL ที่เลือก
+        //     }
+        // }
     </script>
-@endsection --}}
+@endsection
